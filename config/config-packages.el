@@ -15,11 +15,23 @@
 (require 'use-package)
 
 ;;; use auto-compile
-(use-package auto-compile
-  :ensure t
-  )
+(use-package auto-compile :ensure t)
 (auto-compile-on-load-mode)
 (setq load-prefer-newer t)
 (auto-compile-on-save-mode)
+
+(use-package company
+  :ensure t
+  :defer
+  :bind (("TAB" . company-indent-or-complete-common))
+  ;;:init
+  ;;(add-hook 'after-init-hook 'global-company-mode)
+  :config
+  (progn
+    (setq company-tooltip-align-annotations t)
+    (setq company-idle-delay 0.05)
+    (setq company-minimum-prefix-length 3))
+  )
+
 
 (provide 'config-packages)
