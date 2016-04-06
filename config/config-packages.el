@@ -23,15 +23,15 @@
 (use-package company
   :ensure t
   :defer
-  :bind (("TAB" . company-indent-or-complete-common))
+
+  ;;:bind (("TAB" . company-indent-or-complete-common))
+
   ;;:init
   ;;(add-hook 'after-init-hook 'global-company-mode)
-  :config
-  (progn
-    (setq company-tooltip-align-annotations t)
-    (setq company-idle-delay 0.05)
-    (setq company-minimum-prefix-length 3))
-  )
 
+  :config
+  (setq company-tooltip-align-annotations t)
+  (setq company-idle-delay 0.05)
+  (setq company-minimum-prefix-length 3))
 
 (provide 'config-packages)
