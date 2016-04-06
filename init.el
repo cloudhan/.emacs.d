@@ -8,4 +8,5 @@
 (require 'config-ui)
 (require 'config-chinese)
 
+(require 'lang-cpp)
 (require 'lang-rust)
