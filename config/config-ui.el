@@ -9,6 +9,8 @@
   (menu-bar-mode -1)
   (scroll-bar-mode -1))
 
+(setq frame-resize-pixelwise t)
+
 ;; set key for resizing font
 (global-set-key (kbd "C-+") 'text-scale-increase)
 (global-set-key (kbd "C--") 'text-scale-decrease)
