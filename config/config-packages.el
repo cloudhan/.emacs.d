@@ -2,10 +2,9 @@
 
 ;;; repo setup
 (require 'package)
-(unless (assoc-default "melpa" package-archives)
-  (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t)
-  ; (package-refresh-contents)
-  )
+(add-to-list 'package-archives
+	     '("melpa" . "http://melpa.org/packages/") t)
+;(package-refresh-contents)
 
 ;;; install use-package
 (package-initialize)
