@@ -39,6 +39,8 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; load and config company
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(setq w32-pipe-read-delay 0)
 (use-package company
   :ensure t
   :defer 5
@@ -55,15 +57,26 @@
   (add-hook 'after-init-hook 'global-company-mode)
 
   :config
-  (setq company-tooltip-align-annotations t)
-  (setq company-idle-delay 0.05)
-  (setq company-minimum-prefix-length 3))
+  (setq company-tooltip-offset-display 'scrollbar
+        company-tooltip-align-annotations t
+        company-selection-wrap-around t
+        company-minimum-prefix-length 3
+        company-tooltip-limit 10
+        company-idle-delay 0.3
+        company-echo-delay 0
+        company-require-match nil
+        company-tooltip-margin 2
+        company-async-wait 0.03
+        company-async-timeout 2
+        )
+  )
 
 (use-package company-lsp
   :disabled t
   :after (company lsp-mode)
   :config
   (push 'company-lsp company-backends)
-  (setq company-lsp-cache-candidates t))
+  (setq company-lsp-async 1
+        company-lsp-cache-candidates 'auto))
 
 (provide 'config-packages)

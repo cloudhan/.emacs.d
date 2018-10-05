@@ -5,6 +5,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (use-package lsp-mode
   :ensure t
+  :diminish
   :init 
   (setq lsp-eldoc-render-all nil
         lsp-highlight-symbol-at-point nil))
