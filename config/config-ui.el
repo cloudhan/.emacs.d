@@ -1,3 +1,6 @@
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; initial window height and widht
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (add-to-list 'default-frame-alist '(height . 32))
 (add-to-list 'default-frame-alist '(width . 85))
 
@@ -11,28 +14,38 @@
 
 (setq frame-resize-pixelwise t)
 
-;; set key for resizing font
-(global-set-key (kbd "C-+") 'text-scale-increase)
-(global-set-key (kbd "C--") 'text-scale-decrease)
 
-(use-package solarized-theme
-  :ensure t
-  :config
-  (load-theme 'solarized-light t))
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; install themes and load based on GUI system
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(use-package atom-one-dark-theme  :ensure t :defer t)
+(use-package monokai-theme       :ensure t :defer t)
+(setq term-theme 'monokai
+    gui-theme 'atom-one-dark)
 
-(ido-mode -1)
+;(if (memq window-system '(w32))
+;    (load-theme gui-theme t)
+;    (load-theme term-theme t))
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; install helm and helm-related utilities
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(use-package helm-swoop :ensure t :defer t)
 (use-package helm
   :ensure t
-
+  :defer t
   :diminish helm-mode
 
   :init
   (require 'helm-config)
+  (require 'helm-command)
+  (require 'helm-swoop)
+  (require 'helm-ring)
+
   (setq helm-candidate-number-limit 100)
-  ;; From https://gist.github.com/antifuchs/9238468
   (setq helm-idle-delay 0.0 ; update fast sources immediately (doesn't).
-	helm-input-idle-delay 0.05      ; this actually updates things
-                                        ; reeeelatively quickly.
+	helm-input-idle-delay 0.05      ; this actually updates things  quickly.
 	helm-yas-display-key-on-candidate t
 	helm-quick-update t
 	helm-M-x-requires-pattern nil
@@ -40,6 +53,7 @@
   
   :config
   (helm-mode 1)
+
   :bind (("C-c h" . helm-mini)
          ("C-h a" . helm-apropos)
          ("C-x C-b" . helm-buffers-list)
@@ -48,8 +62,6 @@
          ("M-x" . helm-M-x)
          ("C-x c o" . helm-occur)
          ("C-x c s" . helm-swoop)
-         ("C-x c y" . helm-yas-complete)
-         ("C-x c Y" . helm-yas-create-snippet-on-region)
          ("C-x c b" . my/helm-do-grep-book-notes)
          ("C-x c SPC" . helm-all-mark-rings)))
 
