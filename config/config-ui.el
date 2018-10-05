@@ -18,14 +18,14 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; install themes and load based on GUI system
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(use-package atom-one-dark-theme  :ensure t :defer t)
-(use-package monokai-theme       :ensure t :defer t)
+(use-package atom-one-dark-theme :ensure t)
+(use-package monokai-theme       :ensure t)
 (setq term-theme 'monokai
-    gui-theme 'atom-one-dark)
+      gui-theme  'atom-one-dark)
 
-;(if (memq window-system '(w32))
-;    (load-theme gui-theme t)
-;    (load-theme term-theme t))
+(if (display-graphic-p)
+    (load-theme gui-theme  t)
+    (load-theme term-theme t))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

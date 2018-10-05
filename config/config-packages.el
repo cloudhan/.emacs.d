@@ -36,12 +36,17 @@
   (auto-compile-on-save-mode))
 
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; load and config company
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (use-package company
   :ensure t
+  :defer 5
+  :diminish
+  :commands (company-mode
+             global-company-mode
+             company-complete-common
+             company-indent-or-complete-common)
 
   :bind (("TAB" . company-indent-or-complete-common)
          ("C-j" . company-complete-common))
@@ -55,9 +60,10 @@
   (setq company-minimum-prefix-length 3))
 
 (use-package company-lsp
-  ;:after company ;this cause problem...
-  :ensure t
+  :disabled t
+  :after (company lsp-mode)
   :config
+  (push 'company-lsp company-backends)
   (setq company-lsp-cache-candidates t))
 
 (provide 'config-packages)
