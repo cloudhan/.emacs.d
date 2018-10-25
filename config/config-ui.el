@@ -9,23 +9,49 @@
 
 (when window-system
   (tool-bar-mode -1)
-  (menu-bar-mode -1)
   (scroll-bar-mode -1))
+(menu-bar-mode -1)
 
 (setq frame-resize-pixelwise t)
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; config indentation and other editing related things
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun style-default ()
+  (setq-default indent-tabs-mode nil
+                tab-width 4
+                c-default-style "stroustrup"))
+
+(defun style-netease ()
+  (add-hook 'emacs-lisp-mode-hook '(lambda () (setq-local indent-tabs-mode nil)))
+  (setq-default indent-tabs-mode t
+                tab-width 4
+                c-default-style "linux"))
+  
+(cond ((string= user-login-name "gzhanguangyun") (style-netease))
+      (else (style-default)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; install themes and load based on GUI system
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (use-package atom-one-dark-theme :ensure t)
 (use-package monokai-theme       :ensure t)
-(setq term-theme 'monokai
+(setq term-theme 'atom-one-dark ; 'monokai
       gui-theme  'atom-one-dark)
 
 (if (display-graphic-p)
     (load-theme gui-theme  t)
     (load-theme term-theme t))
+
+(use-package hl-todo
+  :ensure t
+  ;:commands (global-hl-todo-mode)
+  :hook (prog-mode . global-hl-todo-mode)
+  :config
+  (setq hl-todo-keyword-faces
+        `(("TODO"  . ,(face-foreground 'warning))
+          ("FIXME" . ,(face-foreground 'error))
+          ("NOTE"  . ,(face-foreground 'success)))))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
