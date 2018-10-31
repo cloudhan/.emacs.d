@@ -12,6 +12,9 @@
   (scroll-bar-mode -1))
 (menu-bar-mode -1)
 
+(when (version< "26" emacs-version)
+  (global-display-line-numbers-mode))
+
 (setq frame-resize-pixelwise t)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -26,7 +29,7 @@
   (add-hook 'emacs-lisp-mode-hook '(lambda () (setq-local indent-tabs-mode nil)))
   (setq-default indent-tabs-mode t
                 tab-width 4
-                c-default-style "linux"))
+                c-default-style "stroustrup"))
   
 (cond ((string= user-login-name "gzhanguangyun") (style-netease))
       (else (style-default)))
