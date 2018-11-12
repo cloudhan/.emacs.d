@@ -1,5 +1,5 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; initial window height and widht
+11;rgb:1e1e/1e1e/1e1e;; initial window height and widht
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (add-to-list 'default-frame-alist '(height . 32))
 (add-to-list 'default-frame-alist '(width . 85))
@@ -13,7 +13,8 @@
 (menu-bar-mode -1)
 
 (when (version< "26" emacs-version)
-  (global-display-line-numbers-mode))
+  ; (global-display-line-numbers-mode)
+  (add-hook 'prog-mode-hook (lambda () (display-line-numbers-mode))))
 
 (setq frame-resize-pixelwise t)
 
@@ -21,16 +22,24 @@
 ;; config indentation and other editing related things
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun style-default ()
+  (message "Use default style")
   (setq-default indent-tabs-mode nil
                 tab-width 4
                 c-default-style "stroustrup"))
 
 (defun style-netease ()
-  (add-hook 'emacs-lisp-mode-hook '(lambda () (setq-local indent-tabs-mode nil)))
-  (setq-default indent-tabs-mode t
-                tab-width 4
+  (message "Use NetEase style")
+  (add-hook 'emacs-lisp-mode-hook '(lambda () (setq-local indent-tabs-mode nil)))  ;; I want my emacs config file indent with space
+  (add-hook 'prog-mode-hook '(lambda () (setq-local indent-tabs-mode t)))
+  (add-hook 'python-mode-hook (lambda ()
+                                (setq indent-tabs-mode t)
+                                (setq python-indent 4)
+                                (setq tab-width 4)))
+
+  (setq tab-width 4)
+  (setq-default indent-tabs-mode t            
                 c-default-style "stroustrup"))
-  
+
 (cond ((string= user-login-name "gzhanguangyun") (style-netease))
       (else (style-default)))
 
@@ -93,5 +102,15 @@
          ("C-x c s" . helm-swoop)
          ("C-x c b" . my/helm-do-grep-book-notes)
          ("C-x c SPC" . helm-all-mark-rings)))
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; install neotree
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(use-package neotree
+  :ensure t
+  :defer t
+  :commands (neotree-toggle)
+  :bind (("C-M-l" . neotree-toggle)))
 
 (provide 'config-ui)

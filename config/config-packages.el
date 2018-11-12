@@ -1,5 +1,5 @@
 ;; config my packages
-
+11;rgb:1e1e/1e1e/1e1e
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; repo setup
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -50,7 +50,7 @@
              company-complete-common
              company-indent-or-complete-common)
 
-  :bind (("TAB" . company-indent-or-complete-common)
+  :bind (;("TAB" . company-indent-or-complete-common)
          ("C-j" . company-complete-common))
 
   :init
@@ -78,5 +78,7 @@
   (push 'company-lsp company-backends)
   (setq company-lsp-async 1
         company-lsp-cache-candidates 'auto))
+
+(require 'cmake-mode)
 
 (provide 'config-packages)
