@@ -41,7 +41,7 @@
                 c-default-style "stroustrup"))
 
 (cond ((string= user-login-name "gzhanguangyun") (style-netease))
-      (else (style-default)))
+      (t (style-default)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; install themes and load based on GUI system
@@ -114,3 +114,26 @@
   :bind (("C-M-l" . neotree-toggle)))
 
 (provide 'config-ui)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; which key
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(use-package which-key
+  :ensure t
+  :init
+  (setq which-key-seperator " ")
+  (setq which-key-prefix-prefix "+")
+  (setq which-key-idle-delay 0.25)
+  :config
+  (which-key-mode 1))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; other config
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(setq show-paren-delay 0)
+(show-paren-mode 1)
+
+;; (use-package doom-modeline
+;;       :ensure t
+;;       :defer t
+;;       :hook (after-init . doom-modeline-init))
