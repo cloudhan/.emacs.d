@@ -1,5 +1,5 @@
 ;; config my packages
-11;rgb:1e1e/1e1e/1e1e
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; repo setup
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -78,6 +78,8 @@
   (push 'company-lsp company-backends)
   (setq company-lsp-async 1
         company-lsp-cache-candidates 'auto))
+
+(use-package realgud :ensure :defer t)
 
 (require 'cmake-mode)
 

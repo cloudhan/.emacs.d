@@ -1,5 +1,5 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-11;rgb:1e1e/1e1e/1e1e;; initial window height and widht
+;; initial window height and widht
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (add-to-list 'default-frame-alist '(height . 32))
 (add-to-list 'default-frame-alist '(width . 85))
@@ -27,21 +27,22 @@
                 tab-width 4
                 c-default-style "stroustrup"))
 
-(defun style-netease ()
-  (message "Use NetEase style")
-  (add-hook 'emacs-lisp-mode-hook '(lambda () (setq-local indent-tabs-mode nil)))  ;; I want my emacs config file indent with space
-  (add-hook 'prog-mode-hook '(lambda () (setq-local indent-tabs-mode t)))
-  (add-hook 'python-mode-hook (lambda ()
-                                (setq indent-tabs-mode t)
-                                (setq python-indent 4)
-                                (setq tab-width 4)))
+;; leave it here as an example
+;; (defun style-netease ()
+;;   (message "Use NetEase style")
+;;   (add-hook 'emacs-lisp-mode-hook '(lambda () (setq-local indent-tabs-mode nil)))  ;; I want my emacs config file indent with space
+;;   (add-hook 'prog-mode-hook '(lambda () (setq-local indent-tabs-mode t)))
+;;   (add-hook 'python-mode-hook (lambda ()
+;;                                 (setq indent-tabs-mode t)
+;;                                 (setq python-indent 4)
+;;                                 (setq tab-width 4)))
+;;   (setq tab-width 4)
+;;   (setq-default indent-tabs-mode t            
+;;                 c-default-style "stroustrup"))
+;; (cond ((string= user-login-name "gzhanguangyun") (style-netease))
+;;       (t (style-default)))
+(style-default)
 
-  (setq tab-width 4)
-  (setq-default indent-tabs-mode t            
-                c-default-style "stroustrup"))
-
-(cond ((string= user-login-name "gzhanguangyun") (style-netease))
-      (t (style-default)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; install themes and load based on GUI system
@@ -137,3 +138,27 @@
 ;;       :ensure t
 ;;       :defer t
 ;;       :hook (after-init . doom-modeline-init))
+
+(defmacro save-column (&rest body)
+  `(let ((column (current-column)))
+     (unwind-protect
+         (progn ,@body)
+       (move-to-column column))))
+(put 'save-column 'lisp-indent-function 0)
+
+(defun move-line-up ()
+  (interactive)
+  (when (not (equal 1 (line-number-at-pos)))  
+    (save-column
+      (transpose-lines 1)
+      (forward-line -2))))
+
+(defun move-line-down ()
+  (interactive)
+    (save-column
+     (forward-line 1)
+     (transpose-lines 1)
+     (forward-line -1)))
+
+(global-set-key (kbd "M-<up>") 'move-line-up)
+(global-set-key (kbd "M-<down>") 'move-line-down)

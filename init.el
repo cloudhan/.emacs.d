@@ -4,7 +4,7 @@
 (setq custom-file (concat user-emacs-directory "custom-set-variables.el"))
 (load custom-file 'noerror)
 
-;; Don’t compact font caches during GC.  If you are expereicing the
+;; Don't compact font caches during GC.  If you are expereicing the
 ;; laggy issue especially on Windows, please set to non-nil.
 (setq inhibit-compacting-font-caches t)
 
