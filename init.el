@@ -11,6 +11,10 @@
 (when (eq system-type 'windows-nt)
   (setq w32-pipe-read-delay 0))
 
+(add-to-list 'custom-theme-load-path "~/.emacs.d/theme")
+(load-theme 'dark+ t)
+(load-theme 'dark+-modified t)
+
 (add-to-list 'load-path "~/.emacs.d/config")
 (require 'config-packages)
 (require 'config-ui)
