@@ -12,6 +12,7 @@
   (setq w32-pipe-read-delay 0))
 
 (add-to-list 'custom-theme-load-path "~/.emacs.d/theme")
+(load-theme 'leuven t)
 (load-theme 'dark+ t)
 (load-theme 'dark+-modified t)
 

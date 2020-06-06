@@ -47,8 +47,9 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; install themes and load based on GUI system
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(setq term-theme 'dark+-modified
-      gui-theme  'dark+-modified)
+(setq term-theme 'leuven ; 'dark+
+      gui-theme  'leuven ; 'dark+
+      )
 
 (if (display-graphic-p)
     (load-theme gui-theme  t)
