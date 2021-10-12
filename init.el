@@ -1,4 +1,4 @@
-(setq gc-cons-threshold 67108864) ;; 512MB
+(setq gc-cons-threshold (* 256 1024 1024)) ;; 256MB
 (setq package--init-file-ensured t)
 (setq create-lockfiles nil)
 (setq custom-file (concat user-emacs-directory "custom-set-variables.el"))
@@ -13,14 +13,11 @@
 
 (add-to-list 'custom-theme-load-path "~/.emacs.d/theme")
 (load-theme 'leuven t)
-(load-theme 'dark+ t)
+(load-theme 'vscode-dark-plus)
 (load-theme 'dark+-modified t)
 
 (add-to-list 'load-path "~/.emacs.d/config")
-(require 'config-packages)
+(require 'config-misc)
 (require 'config-ui)
+(require 'config-lsp)
 (require 'config-chinese)
-
-(add-to-list 'load-path "~/.emacs.d/lang")
-(require 'lang)
-

@@ -50,13 +50,16 @@
              company-complete-common
              company-indent-or-complete-common)
 
-  :bind (;("TAB" . company-indent-or-complete-common)
+  :bind (; ("TAB" . company-indent-or-complete-common)
          ("C-j" . company-complete-common))
 
-  :init
-  (add-hook 'after-init-hook 'global-company-mode)
+  :hook (after-init . global-company-mode)
 
   :config
+  (setq company-backends '(company-capf
+                           company-keywords
+                           company-files
+                           company-cmake))
   (setq company-tooltip-offset-display 'scrollbar
         company-tooltip-align-annotations t
         company-selection-wrap-around t
@@ -71,16 +74,6 @@
         )
   )
 
-(use-package company-lsp
-  :disabled t
-  :after (company lsp-mode)
-  :config
-  (push 'company-lsp company-backends)
-  (setq company-lsp-async 1
-        company-lsp-cache-candidates 'auto))
-
-(use-package realgud :ensure :defer t)
-
 (require 'cmake-mode)
 
-(provide 'config-packages)
+(provide 'config-misc)

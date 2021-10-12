@@ -2,7 +2,7 @@
 ;; initial window height and widht
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (add-to-list 'default-frame-alist '(height . 32))
-(add-to-list 'default-frame-alist '(width . 85))
+(add-to-list 'default-frame-alist '(width . 121))
 
 ;; disable splash screen
 (setq inhibit-startup-screen t)
@@ -43,21 +43,32 @@
 ;;       (t (style-default)))
 (style-default)
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; hide builtin minor modes
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(use-package abbrev :diminish abbrev-mode)
+(use-package eldoc :diminish eldoc-mode)
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; install themes and load based on GUI system
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(setq term-theme 'leuven ; 'dark+
-      gui-theme  'leuven ; 'dark+
+(setq term-theme 'vscode-dark-plus ; 'leuven
+      gui-theme  'vscode-dark-plus ; 'leuven
       )
 
 (if (display-graphic-p)
     (load-theme gui-theme  t)
     (load-theme term-theme t))
 
+
+(use-package hl-line
+  :ensure
+  :hook ((prog-mode . global-hl-line-mode)
+         (text-mode . global-hl-line-mode)))
+
 (use-package hl-todo
   :ensure t
-  ;:commands (global-hl-todo-mode)
   :hook (prog-mode . global-hl-todo-mode)
   :config
   (setq hl-todo-keyword-faces
@@ -113,13 +124,12 @@
   :commands (neotree-toggle)
   :bind (("C-M-l" . neotree-toggle)))
 
-(provide 'config-ui)
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; which key
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (use-package which-key
   :ensure t
+  :diminish
   :init
   (setq which-key-seperator " ")
   (setq which-key-prefix-prefix "+")
@@ -161,3 +171,7 @@
 
 (global-set-key (kbd "M-<up>") 'move-line-up)
 (global-set-key (kbd "M-<down>") 'move-line-down)
+
+
+(provide 'config-ui)
+
