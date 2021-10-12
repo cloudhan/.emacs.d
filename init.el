@@ -19,5 +19,5 @@
 (add-to-list 'load-path "~/.emacs.d/config")
 (require 'config-misc)
 (require 'config-ui)
-(require 'config-lsp)
+(require 'config-lang)
 (require 'config-chinese)

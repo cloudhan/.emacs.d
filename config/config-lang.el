@@ -10,8 +10,9 @@
 (use-package lsp-mode
   :ensure t
   :init
-  ;; prefix for lsp-command-keymap
-  (setq lsp-keymap-prefix "C-c l")
+  (setq lsp-keymap-prefix "C-c l") ; prefix for lsp-command-keympa
+  :config
+  (add-to-list 'lsp-language-id-configuration '(cuda-mode . "cpp"))
   :hook (;; which-key integration
          (lsp-mode . lsp-enable-which-key-integration))
   :commands (lsp lsp-deferred))
@@ -36,6 +37,7 @@
 
 (use-package lsp-pyright
   :ensure t
+  :defer t
   :hook
   (python-mode . (lambda ()
                    (require 'lsp-pyright)
@@ -43,4 +45,19 @@
   :config
   (setq lsp-pyright-auto-import-completions nil))
 
-(provide 'config-lsp)
+(use-package cmake-mode
+  :ensure t
+  :defer t)
+
+(use-package cuda-mode
+  :ensure t
+  :defer t
+  :init
+  (setq auto-mode-alist
+        (append
+         '(("\\.cu\\.cc\\'" . cuda-mode))
+         auto-mode-alist))
+  :hook
+  (cuda-mode . lsp-deferred))
+
+(provide 'config-lang)

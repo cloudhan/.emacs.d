@@ -74,6 +74,4 @@
         )
   )
 
-(require 'cmake-mode)
-
 (provide 'config-misc)
