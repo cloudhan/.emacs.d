@@ -143,11 +143,6 @@
 (setq show-paren-delay 0)
 (show-paren-mode 1)
 
-;; (use-package doom-modeline
-;;       :ensure t
-;;       :defer t
-;;       :hook (after-init . doom-modeline-init))
-
 (defmacro save-column (&rest body)
   `(let ((column (current-column)))
      (unwind-protect
@@ -171,7 +166,6 @@
 
 (global-set-key (kbd "M-<up>") 'move-line-up)
 (global-set-key (kbd "M-<down>") 'move-line-down)
-
 
 (provide 'config-ui)
 

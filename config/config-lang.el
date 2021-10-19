@@ -5,14 +5,22 @@
 (setq lsp-idle-delay 0.25)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; config lsp itself
+;; config lsp itself (the lsp-mode client)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (use-package lsp-mode
   :ensure t
   :init
   (setq lsp-keymap-prefix "C-c l") ; prefix for lsp-command-keympa
   :config
-  (add-to-list 'lsp-language-id-configuration '(cuda-mode . "cpp"))
+  ;; (add-to-list 'lsp-language-id-configuration '(cuda-mode . "cpp"))
+  (setq lsp-language-id-configuration (append
+                                       '((nix-mode . "nix")
+                                         (cuda-mode . "cpp"))
+                                       'lsp-language-id-configuration))
+  (lsp-register-client
+   (make-lsp-client :new-connection (lsp-stdio-connection '("rnix-lsp"))
+                    :major-modes '(nix-mode)
+                    :server-id 'nix))
   :hook (;; which-key integration
          (lsp-mode . lsp-enable-which-key-integration))
   :commands (lsp lsp-deferred))
@@ -28,7 +36,7 @@
   :commands helm-lsp-workspace-symbol)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; language configurations
+;; language configurations (the servers for each language)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (use-package lsp-c/cpp
   :hook
@@ -52,12 +60,17 @@
 (use-package cuda-mode
   :ensure t
   :defer t
-  :init
-  (setq auto-mode-alist
-        (append
-         '(("\\.cu\\.cc\\'" . cuda-mode))
-         auto-mode-alist))
+  :mode "\\.cu\\.cc\\'"
   :hook
   (cuda-mode . lsp-deferred))
+
+(use-package nix-mode
+  ;; nix-env -i -f https://github.com/nix-community/rnix-lsp/archive/master.tar.gz
+  :ensure t
+  :defer t
+  :mode "\\.nix\\'"
+  :hook
+  (nix-mode . lsp-deferred))
+
 
 (provide 'config-lang)

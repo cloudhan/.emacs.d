@@ -14,7 +14,7 @@
 (add-to-list 'custom-theme-load-path "~/.emacs.d/theme")
 (load-theme 'leuven t)
 (load-theme 'vscode-dark-plus)
-(load-theme 'dark+-modified t)
+(load-theme 'dark-minus t)
 
 (add-to-list 'load-path "~/.emacs.d/config")
 (require 'config-misc)
