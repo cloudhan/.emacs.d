@@ -6,5 +6,6 @@ eshell/
 #*#
 *~
 *.elc
+.lsp-session*
 
 recentf
